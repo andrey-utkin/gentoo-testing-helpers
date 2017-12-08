@@ -1,0 +1,19 @@
+#!/bin/bash
+set -e
+set -x
+
+if [[ -z "$ARCH" ]]; then
+	echo 'Set $ARCH'
+	exit 1
+fi
+if [[ -z "$ROOT" ]]; then
+	echo 'Set $ROOT'
+	exit 1
+fi
+
+for x in dev sys proc
+do
+	mount --rbind {/,$ROOT/}$x
+done
+
+cp -L {/,$ROOT/}etc/resolv.conf
