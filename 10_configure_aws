@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+set -x
+
+if [[ -z "$ARCH" ]]; then
+	echo 'Set $ARCH'
+	exit 1
+fi
+if [[ -z "$ROOT" ]]; then
+	echo 'Set $ROOT'
+	exit 1
+fi
+
+cp -r /home/j/.aws "$ROOT"/root/
