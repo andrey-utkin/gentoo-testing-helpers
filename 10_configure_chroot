@@ -1,0 +1,24 @@
+#!/bin/bash
+set -e
+set -x
+
+if [[ -z "$ROOT" ]]; then
+	echo 'Set $ROOT'
+	exit 1
+fi
+SRC_DIR="$ROOT/usr/local/src"
+
+pushd "$SRC_DIR"/gentoo.git
+git fetch my
+git reset --hard my/boto-stabilization
+popd
+
+pushd "$SRC_DIR/botocore"
+git checkout 1.7.39
+git reset --hard
+popd
+
+pushd "$SRC_DIR/boto3"
+git checkout 1.4.7
+git reset --hard
+popd

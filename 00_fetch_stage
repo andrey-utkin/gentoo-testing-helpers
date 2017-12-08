@@ -1,0 +1,28 @@
+#!/bin/bash
+set -e
+set -x
+
+if [[ -z "$ARCH" ]]; then
+	echo 'Set $ARCH'
+	exit 1
+fi
+if [[ -z "$ROOT" ]]; then
+	echo 'Set $ROOT'
+	exit 1
+fi
+
+if [[ -e "$ROOT"/stage3*.tar.* ]]; then
+	echo "Stage file already in place"
+fi
+
+DISTFILES_DIR="http://distfiles.gentoo.org/releases/$ARCH/autobuilds"
+case "$ARCH" in
+	amd64) TXT_NAME="latest-stage3-amd64-nomultilib.txt" ;;
+	x86)   TXT_NAME="latest-stage3-i686.txt" ;;
+	*) false ;;
+esac
+STAGE_PATH=$(wget "$DISTFILES_DIR/$TXT_NAME" -O - -q | tail -1 | sed 's/ .*//')
+STAGE_FILENAME=$(basename $STAGE_PATH)
+OUT_PATH="$ROOT/$STAGE_FILENAME"
+wget --continue "$DISTFILES_DIR/$STAGE_PATH" -O "$OUT_PATH"
+echo "$OUT_PATH"
