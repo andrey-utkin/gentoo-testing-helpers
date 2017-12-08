@@ -1,0 +1,33 @@
+#!/bin/bash
+set -e
+set -x
+
+if [[ -z "$ARCH" ]]; then
+	echo 'Set $ARCH'
+	exit 1
+fi
+if [[ -z "$ROOT" ]]; then
+	echo 'Set $ROOT'
+	exit 1
+fi
+
+mkdir -p "$ROOT"/etc/portage/env
+echo '
+FEATURES="${FEATURES} test"
+' > "$ROOT"/etc/portage/env/test.conf
+echo '
+dev-python/botocore test.conf
+dev-python/boto3 test.conf
+' > "$ROOT"/etc/portage/package.env
+
+echo '
+PYTHON_TARGETS="python2_7 python3_4 python3_5 python3_6"
+' >> "$ROOT"/etc/portage/make.conf
+
+# optional
+# aids faster env recreation
+# packages must be manually preserved
+# and --usepkg should be added to emerge options manually
+echo '
+FEATURES="${FEATURES} buildpkg"
+' >> "$ROOT"/etc/portage/make.conf
