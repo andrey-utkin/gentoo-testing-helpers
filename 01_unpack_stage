@@ -1,0 +1,16 @@
+#!/bin/bash
+set -e
+set -x
+
+if [[ -z "$ARCH" ]]; then
+	echo 'Set $ARCH'
+	exit 1
+fi
+if [[ -z "$ROOT" ]]; then
+	echo 'Set $ROOT'
+	exit 1
+fi
+
+STAGE_FILE="$ROOT"/stage3*.tar.*
+
+tar xaf "$STAGE_FILE" -C "$ROOT"
