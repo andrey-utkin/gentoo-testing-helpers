@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+set -x
+
+. /etc/profile
+env-update
+
+for python in /usr/bin/python?.?; do
+	# As of botocore-1.4.7.ebuild, functional tests are not run with FEATURES="test"
+	"$python" /usr/bin/nosetests -q /usr/local/src/botocore/tests/{functional,integration} > /var/log/botocore_tests.out
+	"$python" /usr/bin/nosetests -q /usr/local/src/boto3/tests/integration > /var/log/boto3_tests.out
+done

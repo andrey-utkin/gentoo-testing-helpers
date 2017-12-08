@@ -1,0 +1,13 @@
+#!/bin/bash
+set -e
+set -x
+
+if [[ -n "$ROOT" ]]; then
+	echo 'UNset $ROOT'
+	exit 1
+fi
+
+. /etc/profile
+env-update
+
+emerge -tvq dev-python/boto{core,3}
