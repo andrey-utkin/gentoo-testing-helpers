@@ -10,15 +10,13 @@ fi
 SRC_DIR="$ROOT/usr/local/src"
 mkdir -p $SRC_DIR
 
-pushd "$SRC_DIR"
-
-git clone https://github.com/andrey-utkin/gentoo.git gentoo.git
-pushd gentoo.git
+git clone https://github.com/andrey-utkin/gentoo.git "$ROOT"/usr/portage
+pushd "$ROOT"/usr/portage
 git remote add my https://github.com/andrey-utkin/gentoo.git
 git fetch my
 popd
 
+pushd "$SRC_DIR"
 git clone https://github.com/boto/botocore
 git clone https://github.com/boto/boto3
-
 popd

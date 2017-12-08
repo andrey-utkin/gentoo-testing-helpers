@@ -8,7 +8,7 @@ if [[ -z "$ROOT" ]]; then
 fi
 SRC_DIR="$ROOT/usr/local/src"
 
-pushd "$SRC_DIR"/gentoo.git
+pushd "$ROOT"/usr/portage
 git fetch my
 git reset --hard my/boto-stabilization
 popd
