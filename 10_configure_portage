@@ -21,6 +21,11 @@ dev-python/boto3 test.conf
 ' > "$ROOT"/etc/portage/package.env
 
 echo '
+dev-python/botocore doc
+dev-python/boto3 doc
+' > "$ROOT"/etc/portage/package.use/boto
+
+echo '
 PYTHON_TARGETS="python2_7 python3_4 python3_5 python3_6"
 ' >> "$ROOT"/etc/portage/make.conf
 
